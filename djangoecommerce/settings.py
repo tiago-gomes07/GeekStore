@@ -37,8 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # libs
+    'widget_tweaks',
+    # apps
     'core',
-    'catalogo'
+    'catalogo',
+    'accounts',
+    'checkout',
+    'pesquisa',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +55,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # meus middlewares
+    'checkout.middleware.cart_item_middleware'
 ]
 
 ROOT_URLCONF = 'djangoecommerce.urls'
@@ -74,6 +83,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangoecommerce.wsgi.application'
 
 
+# Messages
+from django.contrib.messages import constants as messages_constants
+MESSAGE_TAGS = {
+    messages_constants.DEBUG: 'debug',
+    messages_constants.INFO: 'info',
+    messages_constants.SUCCESS: 'success',
+    messages_constants.WARNING: 'warning',
+    messages_constants.ERROR: 'danger',
+}
+
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
@@ -88,6 +107,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 
+# auth
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -103,6 +123,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.backends.ModelBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
