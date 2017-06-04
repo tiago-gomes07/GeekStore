@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # libs
     'widget_tweaks',
+    'easy_thumbnails',
     # apps
     'core',
     'catalogo',
@@ -149,3 +150,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+# thumbnails
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'product_image': {'size': (358, 200), 'crop': True},
+        'product_inside_image': {'size': (845, 317), 'crop': True},
+        'banner_home': {'size': (1140, 427), 'crop': True},
+    }
+}

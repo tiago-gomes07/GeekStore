@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model
 from django.views.generic import View, TemplateView, CreateView
 from catalogo.models import Category, Product
 from django.views import generic
+from .models import Banner
+
 
 class indexProdutos(generic.ListView):
 	
@@ -16,6 +18,11 @@ class indexProdutos(generic.ListView):
 
 	def get_queryset(self):
 		return Product.objects.filter(promotional=True)
+
+	def get_context_data(self, **kwargs):
+		context = super(indexProdutos, self).get_context_data(**kwargs)
+		context['banner'] = Banner.objects.filter(promovido=True)
+		return context
 
 index = indexProdutos.as_view()
 
